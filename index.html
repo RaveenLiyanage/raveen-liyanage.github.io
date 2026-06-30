@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raveen Liyanage — Aerospace Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5F0;
+    --ink:#1B1D1C;
+    --ink-soft:#5B5F5C;
+    --line:#D9D5C9;
+    --accent:#D8480F; /* international orange, used sparingly */
+    --mono-bg:#EFEBE1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+
+  /* ===== Header / spec-sheet hero ===== */
+  header{
+    border-bottom:1px solid var(--line);
+    padding:3.5rem 1.5rem 2.5rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .header-inner{max-width:880px;margin:0 auto;position:relative;z-index:2;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    gap:1.5rem;
+    flex-wrap:wrap;
+    margin-bottom:1.4rem;
+  }
+  .eyebrow span{white-space:nowrap;}
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(2.4rem,6vw,4.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+  }
+  .role-line{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.95rem;
+    color:var(--ink-soft);
+    margin-top:.9rem;
+    max-width:46ch;
+  }
+  .contact-row{
+    margin-top:2rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4rem 1.6rem;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+  .contact-row a:hover{color:var(--accent);}
+
+  /* orbit graphic */
+  .orbit-svg{
+    position:absolute;
+    right:-60px;
+    top:-40px;
+    width:420px;
+    height:420px;
+    z-index:1;
+    opacity:.9;
+  }
+  @media (max-width:780px){ .orbit-svg{display:none;} }
+
+  /* ===== Nav ===== */
+  nav{
+    position:sticky;top:0;
+    background:rgba(247,245,240,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    z-index:50;
+  }
+  .nav-inner{
+    max-width:880px;margin:0 auto;
+    padding:.8rem 1.5rem;
+    display:flex;gap:1.6rem;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    overflow-x:auto;
+  }
+  nav a{text-decoration:none;color:var(--ink-soft);white-space:nowrap;border-bottom:1px solid transparent;padding-bottom:2px;}
+  nav a:hover{color:var(--accent);border-color:var(--accent);}
+
+  main{max-width:880px;margin:0 auto;padding:0 1.5rem;}
+
+  section{padding:3.2rem 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .section-head{
+    display:flex;align-items:baseline;gap:.9rem;
+    margin-bottom:1.8rem;
+  }
+  .section-num{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:.85rem;}
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:1.7rem;
+  }
+
+  .profile-text{font-size:1.05rem;max-width:68ch;color:#2b2d2c;}
+
+  /* Education / Experience entries */
+  .entry{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:1.5rem;
+    padding:1.3rem 0;
+    border-top:1px solid var(--line);
+  }
+  .entry:first-of-type{border-top:none;}
+  .entry-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    padding-top:.15rem;
+  }
+  .entry-title{font-weight:600;font-size:1.05rem;}
+  .entry-org{color:var(--ink-soft);font-size:.92rem;margin-top:.15rem;}
+  .entry-org .loc{font-family:'JetBrains Mono',monospace;font-size:.75rem;}
+  .entry ul{margin-top:.7rem;padding-left:1.1rem;}
+  .entry li{margin-bottom:.35rem;font-size:.95rem;color:#3a3c3a;}
+  @media (max-width:600px){
+    .entry{grid-template-columns:1fr;gap:.4rem;}
+  }
+
+  /* Projects grid */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.4rem;
+  }
+  @media (max-width:680px){ .projects-grid{grid-template-columns:1fr;} }
+  .project-card{
+    border:1px solid var(--line);
+    padding:1.3rem 1.4rem;
+    background:#FBFAF6;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .project-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .project-date{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;}
+  .project-title{font-weight:600;margin:.5rem 0 .6rem;font-size:1.02rem;}
+  .project-card ul{padding-left:1.1rem;}
+  .project-card li{font-size:.88rem;color:#3a3c3a;margin-bottom:.3rem;}
+
+  /* Publication */
+  .pub{border:1px solid var(--line);padding:1.3rem 1.4rem;background:#FBFAF6;}
+  .pub-title{font-weight:600;font-size:1rem;}
+  .pub-meta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ink-soft);margin-top:.4rem;}
+  .pub ul{margin-top:.7rem;padding-left:1.1rem;}
+  .pub li{font-size:.9rem;color:#3a3c3a;margin-bottom:.3rem;}
+
+  /* Skills */
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 2.5rem;}
+  @media (max-width:600px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-cat{font-family:'JetBrains Mono',monospace;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:.5rem;}
+  .skill-items{font-size:.93rem;color:#2b2d2c;}
+  .lang-bar-row{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.45rem;}
+  .lang-level{font-family:'JetBrains Mono',monospace;color:var(--ink-soft);font-size:.78rem;}
+
+  footer{
+    padding:2.5rem 1.5rem 3.5rem;
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    color:var(--ink-soft);
+  }
+  footer a{color:var(--accent);text-decoration:none;}
+
+  ::selection{background:var(--accent);color:#fff;}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .project-card{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="orbit-svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <ellipse cx="210" cy="210" rx="190" ry="80" stroke="#D9D5C9" stroke-width="1" transform="rotate(-18 210 210)"/>
+    <ellipse cx="210" cy="210" rx="150" ry="60" stroke="#D9D5C9" stroke-width="1" transform="rotate(-18 210 210)"/>
+    <circle cx="210" cy="210" r="6" fill="#D8480F"/>
+    <circle cx="60" cy="150" r="3" fill="#D8480F"/>
+  </svg>
+  <div class="header-inner">
+    <div class="eyebrow">
+      <span>MSC AEROSPACE ENGINEERING</span>
+      <span>TU DARMSTADT</span>
+      <span>EST. 2023</span>
+    </div>
+    <h1>Raveen<br>Liyanage</h1>
+    <p class="role-line">Robotics &amp; autonomous systems engineer working at the intersection of ROS, computer vision, and spacecraft subsystems.</p>
+    <div class="contact-row">
+      <a href="mailto:raveenlng@proton.me">raveenlng@proton.me</a>
+      <span>(+49) 15238600132</span>
+      <span>91058 Erlangen, Germany</span>
+      <span>Work Permit: Germany</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#profile">Profile</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#publications">Publications</a>
+    <a href="#skills">Skills</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="profile">
+    <div class="section-head"><span class="section-num mono">01</span><h2>Profile</h2></div>
+    <p class="profile-text">MSc Aerospace Engineering student at TU Darmstadt with hands-on experience in robotics, ROS, computer vision, satellite systems, and geospatial data visualization. Seeking to contribute to applied research at the intersection of autonomous systems, simulation, and space technology.</p>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><span class="section-num mono">02</span><h2>Work Experience</h2></div>
+
+    <div class="entry">
+      <div class="entry-date mono">01/2025 – 03/2026</div>
+      <div>
+        <div class="entry-title">Student Assistant</div>
+        <div class="entry-org">Institute of Product Life Cycle Management, TU Darmstadt &nbsp;<span class="loc">Darmstadt, Germany</span></div>
+        <ul>
+          <li>Designed and developed a mobility platform for robotic manipulators using Siemens NX</li>
+          <li>Developed a computer vision and AI-based pipeline for pick-and-place operations</li>
+          <li>Coordinated integration between multiple development teams and ongoing projects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">03/2024 – 03/2026</div>
+      <div>
+        <div class="entry-title">Student Assistant — Robotic Software Engineer</div>
+        <div class="entry-org">PEARL Laboratory, TU Darmstadt &nbsp;<span class="loc">Darmstadt, Germany</span></div>
+        <ul>
+          <li>Developed and maintained a ROS-based tele-operation pipeline integrating Tiago++ robot with HTC Vive VR system</li>
+          <li>Ensured system portability and reproducibility through Docker containerisation</li>
+          <li>Managed version control and collaborative development using Git</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">09/2022 – 11/2023</div>
+      <div>
+        <div class="entry-title">Academic Instructor</div>
+        <div class="entry-org">Department of Mechanical Engineering, University of Jaffna &nbsp;<span class="loc">Kilinochchi, Sri Lanka</span></div>
+        <ul>
+          <li>Conducted laboratory sessions in Robotics, Kinematics &amp; Dynamics, CAD/CAM, and Dynamics &amp; Control</li>
+          <li>Graded laboratory reports and assessments; supported departmental record keeping</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">12/2021 – 03/2022</div>
+      <div>
+        <div class="entry-title">Internship — Mechanical Engineering</div>
+        <div class="entry-org">Arimac Lanka Private Limited &nbsp;<span class="loc">Colombo, Sri Lanka</span></div>
+        <ul>
+          <li>Simulated and proposed a solution for gear backlash in robotic systems</li>
+          <li>Developed assembly and traction system simulation using SOLIDWORKS, CoppeliaSim, and MSC ADAMS</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">03/2022 – 06/2022</div>
+      <div>
+        <div class="entry-title">Internship — Mechanical Engineering</div>
+        <div class="entry-org">Energy Management Systems Private Limited &nbsp;<span class="loc">Colombo, Sri Lanka</span></div>
+        <ul>
+          <li>Designed Building Management Systems and programmed control equipment</li>
+          <li>Supervised installation of control hardware across multiple buildings</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="section-num mono">03</span><h2>Key Projects</h2></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-date">01/2026 – Present</div>
+        <div class="project-title">CubeSat Electrical Power Subsystem (EPS)</div>
+        <ul>
+          <li>Reviewing CubeSat EPS architectures and evaluating power management components</li>
+          <li>Prototyping spacecraft power module: solar input, battery charging, regulated rails, power distribution</li>
+          <li>Integrating housekeeping telemetry (current, voltage, temperature) via I²C sensors</li>
+          <li>Performing functional and electrical testing including load and charging behaviour validation</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <div class="project-date">10/2025 – 03/2026</div>
+        <div class="project-title">Shared Control for Humanoid Telemanipulation Under Communication Delay</div>
+        <ul>
+          <li>Developed teleoperation pipeline with pure teleoperation and shared control modes</li>
+          <li>Investigated effect of communication delay and shared control on user experience quality</li>
+          <li>Stack: PAL Tiago++ robot, ROS, Python, HTC Vive, Git, Docker</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <div class="project-date">05/2024 – 09/2024</div>
+        <div class="project-title">Mission Analysis System Dashboard — ESA CASCADE</div>
+        <ul>
+          <li>Designed and implemented a web-based dashboard to visualize satellite mission analysis results</li>
+          <li>Integrated simulation data into interactive visualizations using HTML, CSS, and Bootstrap</li>
+          <li>Collaborated with engineers and presented results to academic and industry stakeholders</li>
+        </ul>
+      </div>
+
+      <div class="project-card">
+        <div class="project-date">12/2024</div>
+        <div class="project-title">Inverse Pendulum Control</div>
+        <ul>
+          <li>Implemented and validated control strategies using MATLAB/Simulink and NI myRIO hardware</li>
+          <li>Documented system setup, controller design, and performance evaluation methodology</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><span class="section-num mono">04</span><h2>Education</h2></div>
+
+    <div class="entry">
+      <div class="entry-date mono">10/2023 – Present</div>
+      <div>
+        <div class="entry-title">M.Sc. Aerospace Engineering</div>
+        <div class="entry-org">Technical University of Darmstadt &nbsp;<span class="loc">Darmstadt, Germany</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">10/2017 – 08/2022</div>
+      <div>
+        <div class="entry-title">B.Sc. Mechanical &amp; Process Engineering</div>
+        <div class="entry-org">University of Jaffna &nbsp;<span class="loc">Kilinochchi, Sri Lanka</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date mono">01/2019 – 04/2019</div>
+      <div>
+        <div class="entry-title">Research Internship — Mechanical Engineering</div>
+        <div class="entry-org">Indian Institute of Technology (IIT Gandhinagar) &nbsp;<span class="loc">Gujarat, India</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="section-head"><span class="section-num mono">05</span><h2>Publications</h2></div>
+    <div class="pub">
+      <div class="project-date">2021</div>
+      <div class="pub-title">Development of mechanical ventilation strategy to achieve thermal comfort for large occupant spaces</div>
+      <div class="pub-meta">IESL YMS Technical Conference, IESL — D. L. D. R. Liyanage, W. M. M. H. L. De Silva, K. Thurairaja, S. H. I. Hameed</div>
+      <ul>
+        <li>Developed a novel mechanical ventilation strategy using ANSYS Fluent, MATLAB, and SOLIDWORKS</li>
+        <li>Produced a thermal comfort zone model and regression model for climate data transfer</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="section-num mono">06</span><h2>Skills &amp; Languages</h2></div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-cat">Programming</div>
+        <div class="skill-items">Python, MATLAB, C++ (basic), HTML/CSS/Bootstrap</div>
+      </div>
+      <div>
+        <div class="skill-cat">Robotics &amp; Tools</div>
+        <div class="skill-items">ROS, Docker, Git, Siemens NX, SOLIDWORKS, CoppeliaSim, MSC ADAMS, ANSYS Fluent, MATLAB/Simulink</div>
+      </div>
+      <div>
+        <div class="skill-cat">Languages</div>
+        <div class="lang-bar-row"><span>English</span><span class="lang-level">C1</span></div>
+        <div class="lang-bar-row"><span>German</span><span class="lang-level">B2</span></div>
+        <div class="lang-bar-row"><span>Sinhala / Tamil</span><span class="lang-level">Native</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">Volunteering</div>
+        <div class="skill-items">Erasmus Student Network — Team Member, Darmstadt (04/2024 – Present)</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Raveen Liyanage &nbsp;·&nbsp; <a href="mailto:raveenlng@proton.me">raveenlng@proton.me</a> &nbsp;·&nbsp; Darmstadt, Germany</span>
+</footer>
+
+</body>
+</html>
